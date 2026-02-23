@@ -15,7 +15,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "msistealth"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -34,13 +34,13 @@
   services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
-	modesetting.enable = false;
+	modesetting.enable = true;
 
 	powerManagement.enable = false;
 
 	powerManagement.finegrained = false;
 
-	open = false;
+	open = true;
 
 	nvidiaSettings = true;
 
@@ -92,6 +92,8 @@
     # Add any missing dynamic libraries for unpackaged programs
     # here, NOT in environment.systemPackages
     nss
+    ncurses
+    openssl
   ];
 
   #services.displayManager.gdm.enable = true;
@@ -114,11 +116,6 @@
   
   programs.hyprland.enable = true; # enable Hyprland
 
-  environment.systemPackages = [
-    # ... other packages
-    pkgs.kitty # required for the default Hyprland config
-  ];
-
   # Optional, hint Electron apps to use Wayland:
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   
@@ -128,6 +125,13 @@
   virtualisation.virtualbox.guest.enable = true;
   virtualisation.virtualbox.guest.dragAndDrop = true;
 
+  programs.steam = {
+     enable = true;
+  };
+
+# Optional: If you encounter amdgpu issues with newer kernels (e.g., 6.10+ reported issues),
+# you might consider using the LTS kernel or a known stable version.
+# boot.kernelPackages = pkgs.linuxPackages_lts; # Example for LTS
   # Set your time zone.
   time.timeZone = "America/New_York";
 
@@ -181,7 +185,6 @@
     terminator
     wine-staging
     winetricks
-    steam
     alsa-utils
     unzip
     openjdk25
@@ -198,6 +201,16 @@
     postgresql
     python3
     minicom
+    pkgs.kitty
+    pkg-config
+    hyprlauncher
+    gdb
+    autoconf
+    automake
+    libtool
+    tcl
+    tk
+    man-pages
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
