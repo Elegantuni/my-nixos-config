@@ -183,7 +183,7 @@
     google-chrome
     mpv
     terminator
-    wine-staging
+    wineWowPackages.staging
     winetricks
     alsa-utils
     unzip
